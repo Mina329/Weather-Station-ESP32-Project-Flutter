@@ -1,5 +1,6 @@
-import 'package:esp_app/Component/Constant.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:esp_app/common/common.dart';
+import 'package:esp_app/common/constants.dart';
+import 'package:flutter/material.dart';
 
 class About extends StatefulWidget {
   const About({Key? key}) : super(key: key);
@@ -11,10 +12,14 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: PrimaryColor,
-      child: Center(
-        child: Text("about"),
+    return Scaffold(
+      appBar: AppBar(),
+      drawer: const AppDrawer(),
+      body: Container(
+        color: primaryColor,
+        child: const Center(
+          child: Text("about"),
+        ),
       ),
     );
   }

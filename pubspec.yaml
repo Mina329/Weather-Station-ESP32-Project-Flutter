@@ -41,6 +41,9 @@ dependencies:
   syncfusion_flutter_charts: ^20.3.61
   firebase_core: ^2.4.0
   firebase_database: ^10.0.7
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  flex_color_scheme: ^6.1.1
 
 dev_dependencies:
   flutter_test:
