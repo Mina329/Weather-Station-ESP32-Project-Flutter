@@ -1,18 +1,17 @@
 import 'package:esp_app/common/common.dart';
-import 'package:esp_app/Component/Scale.dart';
+import 'package:esp_app/common/widgets/scale_widget.dart';
 import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TempView extends StatefulWidget {
-  const TempView({Key? key}) : super(key: key);
+class PressureView extends StatefulWidget {
+  const PressureView({Key? key}) : super(key: key);
 
   @override
-  State<TempView> createState() => _TempViewState();
+  State<PressureView> createState() => _PressureViewState();
 }
 
-class _TempViewState extends State<TempView> {
-  @override
+class _PressureViewState extends State<PressureView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +23,13 @@ class _TempViewState extends State<TempView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "Temprature",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 50,
-              ),
-            ),
+            const Text("Air Pressure",
+                style: TextStyle(color: Colors.white, fontSize: 50)),
             StreamBuilder<double>(
-              stream: context.read<WeatherRepository>().temperatures(),
+              stream: context.read<WeatherRepository>().pressures(),
               builder: (context, snapshot) {
                 return snapshot.hasData
-                    ? Scale(snapshot.data!, -40, 85, "°C", 10)
+                    ? ScaleWidget(snapshot.data!, 800, 1300, "hPa", 50)
                     : const CircularProgressIndicator();
               },
             ),
