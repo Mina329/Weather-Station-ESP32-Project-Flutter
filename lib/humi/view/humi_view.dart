@@ -1,6 +1,8 @@
 import 'package:esp_app/common/constants.dart';
 import 'package:esp_app/Component/Scale.dart';
+import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HumiView extends StatefulWidget {
   const HumiView({Key? key}) : super(key: key);
@@ -24,7 +26,14 @@ class _HumiViewState extends State<HumiView> {
               "Humidity",
               style: TextStyle(color: Colors.white, fontSize: 50),
             ),
-            Scale(60, 0, 100, "%", 10),
+            StreamBuilder<double>(
+              stream: context.read<WeatherRepository>().humidities(),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? Scale(snapshot.data!, 0, 100, "%", 10)
+                    : const CircularProgressIndicator();
+              },
+            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:esp_app/common/common.dart';
 import 'package:esp_app/humi/humi.dart';
+import 'package:esp_app/pres/pres.dart';
 import 'package:esp_app/temp/temp.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
@@ -34,6 +35,11 @@ class AppDrawer extends StatelessWidget {
             title: "Humidity",
             icon: WeatherIcons.humidity,
             route: HumiPage.route(),
+          ),
+          DrawerItem(
+            title: "Air Pressure",
+            icon: WeatherIcons.barometer,
+            route: PresPage.route(),
           ),
         ],
       ),

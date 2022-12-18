@@ -1,3 +1,4 @@
+import 'package:esp_app/common/common.dart';
 import 'package:esp_app/common/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class _AltitudeState extends State<Altitude> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      drawer: const AppDrawer(),
       body: Container(
         color: primaryColor,
         child: const Center(

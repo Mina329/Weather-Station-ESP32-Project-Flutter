@@ -8,7 +8,6 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         title: const Text("ESP32 Monitor"),
       ),
       body: Container(),

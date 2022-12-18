@@ -1,3 +1,4 @@
+import 'package:esp_app/common/common.dart';
 import 'package:flutter/material.dart';
 
 import '../common/constants.dart';
@@ -14,6 +15,7 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      drawer: const AppDrawer(),
       body: Container(
         color: primaryColor,
         child: const Center(
