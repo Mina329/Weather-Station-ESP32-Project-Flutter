@@ -1,4 +1,3 @@
-import 'package:esp_app/pages/AltitudePage.dart';
 import 'package:flutter/material.dart';
 
 import 'altitude_view.dart';

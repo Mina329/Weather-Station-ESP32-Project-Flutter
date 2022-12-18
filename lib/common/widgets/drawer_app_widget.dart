@@ -1,6 +1,7 @@
 import 'package:esp_app/common/common.dart';
 import 'package:esp_app/humidity/humidity.dart';
 import 'package:esp_app/pressure/pressure.dart';
+import 'package:esp_app/about/about.dart';
 import 'package:esp_app/temperature/temperature.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
@@ -48,6 +49,11 @@ class AppDrawer extends StatelessWidget {
             icon: WeatherIcons.barometer,
             route: PressurePage.route(),
           ),
+          DrawerItem(
+            title: "About",
+            icon: Icons.info,
+            route: AboutPage.route(),
+          ),
         ],
       ),
     );
@@ -89,6 +95,7 @@ class DrawerItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final MaterialPageRoute route;
+
   const DrawerItem({
     super.key,
     required this.icon,
