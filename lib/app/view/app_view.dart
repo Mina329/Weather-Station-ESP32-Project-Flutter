@@ -1,4 +1,5 @@
 import 'package:esp_app/common/common.dart';
+import 'package:esp_app/temperature/temperature.dart';
 import 'package:flutter/material.dart';
 
 class AppView extends StatelessWidget {
@@ -7,10 +8,7 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("ESP32 Monitor"),
-      ),
-      body: Container(),
+      body: TemperaturePage(),
       drawer: const AppDrawer(),
     );
   }

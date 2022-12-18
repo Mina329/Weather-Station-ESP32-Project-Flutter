@@ -15,10 +15,14 @@ class _PressureViewState extends State<PressureView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('ESP32 Monitor'),
+        backgroundColor: primaryColor,
+      ),
       drawer: const AppDrawer(),
       body: Container(
-        color: primaryColor,
+        color: secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,7 +34,7 @@ class _PressureViewState extends State<PressureView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? ScaleWidget(snapshot.data!, 800, 1300, "hPa", 50)
-                    : const CircularProgressIndicator();
+                    : ScaleWidget(1023, 800, 1300, "hPa", 50);
               },
             ),
           ],

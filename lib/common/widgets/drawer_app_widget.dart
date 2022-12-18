@@ -5,6 +5,8 @@ import 'package:esp_app/temperature/temperature.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
+import '../../altitude/view/altitude_page.dart';
+
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
@@ -35,6 +37,11 @@ class AppDrawer extends StatelessWidget {
             title: "Humidity",
             icon: WeatherIcons.humidity,
             route: HumidityPage.route(),
+          ),
+          DrawerItem(
+            title: "Altitude",
+            icon: Icons.height,
+            route: AltitudePage.route(),
           ),
           DrawerItem(
             title: "Air Pressure",
