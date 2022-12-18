@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-import 'Constant.dart';
+import '../common/constants.dart';
 
 Widget Scale(double value , double min,double max,String unit,double interval) {
   return SfRadialGauge(
