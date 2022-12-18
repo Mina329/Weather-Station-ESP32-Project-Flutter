@@ -1,21 +1,23 @@
-import 'package:esp_app/common/constants.dart';
-import 'package:esp_app/Component/Scale.dart';
+import 'package:esp_app/common/common.dart';
+import 'package:esp_app/common/widgets/scale_widget.dart';
 import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HumiView extends StatefulWidget {
-  const HumiView({Key? key}) : super(key: key);
+class TemperatureView extends StatefulWidget {
+  const TemperatureView({Key? key}) : super(key: key);
 
   @override
-  State<HumiView> createState() => _HumiViewState();
+  State<TemperatureView> createState() => _TemperatureViewState();
 }
 
-class _HumiViewState extends State<HumiView> {
+class _TemperatureViewState extends State<TemperatureView> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      drawer: const AppDrawer(),
       body: Container(
         color: primaryColor,
         child: Column(
@@ -23,14 +25,17 @@ class _HumiViewState extends State<HumiView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              "Humidity",
-              style: TextStyle(color: Colors.white, fontSize: 50),
+              "Temprature",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 50,
+              ),
             ),
             StreamBuilder<double>(
-              stream: context.read<WeatherRepository>().humidities(),
+              stream: context.read<WeatherRepository>().temperatures(),
               builder: (context, snapshot) {
                 return snapshot.hasData
-                    ? Scale(snapshot.data!, 0, 100, "%", 10)
+                    ? ScaleWidget(snapshot.data!, -40, 85, "°C", 10)
                     : const CircularProgressIndicator();
               },
             ),
