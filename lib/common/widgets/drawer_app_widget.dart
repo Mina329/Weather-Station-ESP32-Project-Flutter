@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:esp_app/common/common.dart';
 import 'package:esp_app/humidity/humidity.dart';
 import 'package:esp_app/pressure/pressure.dart';
@@ -81,7 +82,7 @@ class _HeaderState extends State<Header> {
     return Container(
       color: Constants.secondaryColor,
       width: double.infinity,
-      height: 200,
+      height: 250,
       padding: const EdgeInsets.only(top: 20.0),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -92,27 +93,29 @@ class _HeaderState extends State<Header> {
               stream: context.read<WeatherRepository>().time(),
               builder: (context, snapshot) {
                 return snapshot.hasData
-                    ? snapshot.data! == "Day"
-                        ? Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            height: 120,
-                            width: 150,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage('images/0.jpg'),
-                                    fit: BoxFit.fill)),
-                          )
-                        : Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            height: 120,
-                            width: 130,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage('images/1.jpg'),
-                                    fit: BoxFit.fill)),
-                          )
+                    ? AvatarGlow(
+                        glowColor: snapshot.data! == 'Day'
+                            ? Colors.orange
+                            : Colors.blue,
+                        endRadius: 70.0,
+                        duration: const Duration(milliseconds: 2000),
+                        repeat: true,
+                        showTwoGlows: true,
+                        repeatPauseDuration: const Duration(milliseconds: 100),
+                        child: Material(
+                          // Replace this child with your own
+                          elevation: 8.0,
+                          shape: const CircleBorder(),
+                          child: CircleAvatar(
+                            radius: 50.0,
+                            backgroundImage: AssetImage(
+                              snapshot.data! == 'Day'
+                                  ? 'images/0.jpg'
+                                  : 'images/1.jpg',
+                            ),
+                          ),
+                        ),
+                      )
                     : const CircularProgressIndicator();
               },
             ),
@@ -127,20 +130,14 @@ class _HeaderState extends State<Header> {
                   stream: context.read<WeatherRepository>().alert(),
                   builder: (context, snapshot) {
                     return snapshot.hasData
-                        ? Container(
-                            child: Icon(
-                              snapshot.data! == 0
-                                  ? Icons.safety_check
-                                  : Icons.dangerous,
-                              color: snapshot.data! == 0
-                                  ? Colors.green
-                                  : Colors.red,
-                            ),
+                        ? Icon(
+                            snapshot.data! == 0
+                                ? Icons.safety_check
+                                : Icons.dangerous,
+                            color:
+                                snapshot.data! == 0 ? Colors.green : Colors.red,
                           )
-                        : Container(
-                            child: const Icon(Icons.safety_check,
-                                color: Colors.white),
-                          );
+                        : const Icon(Icons.safety_check, color: Colors.white);
                   },
                 ),
               ],

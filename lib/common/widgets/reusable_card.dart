@@ -1,42 +1,48 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReusableCard extends StatelessWidget {
-  ReusableCard(
-      {required this.colour,
-      required this.minValue,
-      required this.maxValue,
-      required this.strVal,
-      required this.strlbl,
-      required this.minMinusFunc,
-      required this.minPlusFunc,
-      required this.maxMinusFunc,
-      required this.maxPlusFunc});
+  const ReusableCard({
+    super.key,
+    required this.colour,
+    required this.minValue,
+    required this.maxValue,
+    required this.strVal,
+    required this.strlbl,
+    required this.minMinusFunc,
+    required this.minPlusFunc,
+    required this.maxMinusFunc,
+    required this.maxPlusFunc,
+  });
 
   final Color colour;
-  int minValue;
-  int maxValue;
-  String strVal;
-  String strlbl;
-  VoidCallback minMinusFunc;
+  final int minValue;
+  final int maxValue;
+  final String strVal;
+  final String strlbl;
+  final VoidCallback minMinusFunc;
 
-  VoidCallback minPlusFunc;
+  final VoidCallback minPlusFunc;
 
-  VoidCallback maxMinusFunc;
+  final VoidCallback maxMinusFunc;
 
-  VoidCallback maxPlusFunc;
+  final VoidCallback maxPlusFunc;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: colour,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             Text(
               strVal,
-              style: TextStyle(fontSize: 40, color: Color(0xFF8D8E98)),
+              style: const TextStyle(fontSize: 40, color: Color(0xFF8D8E98)),
             ),
             const SizedBox(
               height: 15,
@@ -67,7 +73,7 @@ class ReusableCard extends StatelessWidget {
                         ),
                         Text(
                           strlbl,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             color: Color(0xFF8D8E98),
                           ),
@@ -79,16 +85,16 @@ class ReusableCard extends StatelessWidget {
                       children: [
                         FloatingActionButton(
                           backgroundColor: const Color(0xFF8D8E98),
-                          child: const Icon(FontAwesomeIcons.minus),
                           onPressed: minMinusFunc,
+                          child: const Icon(FontAwesomeIcons.minus),
                         ),
                         const SizedBox(
                           width: 20.0,
                         ),
                         FloatingActionButton(
                           backgroundColor: const Color(0xFF8D8E98),
-                          child: const Icon(FontAwesomeIcons.plus),
                           onPressed: minPlusFunc,
+                          child: const Icon(FontAwesomeIcons.plus),
                         )
                       ],
                     ),
@@ -116,7 +122,7 @@ class ReusableCard extends StatelessWidget {
                         ),
                         Text(
                           strlbl,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             color: Color(0xFF8D8E98),
                           ),
@@ -128,16 +134,16 @@ class ReusableCard extends StatelessWidget {
                       children: [
                         FloatingActionButton(
                           backgroundColor: const Color(0xFF8D8E98),
-                          child: const Icon(FontAwesomeIcons.minus),
                           onPressed: maxMinusFunc,
+                          child: const Icon(FontAwesomeIcons.minus),
                         ),
                         const SizedBox(
                           width: 20.0,
                         ),
                         FloatingActionButton(
                           backgroundColor: const Color(0xFF8D8E98),
-                          child: const Icon(FontAwesomeIcons.plus),
                           onPressed: maxPlusFunc,
+                          child: const Icon(FontAwesomeIcons.plus),
                         )
                       ],
                     ),
@@ -147,11 +153,6 @@ class ReusableCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      margin: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(10.0),
       ),
     );
   }

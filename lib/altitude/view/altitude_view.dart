@@ -1,7 +1,5 @@
 import 'package:esp_app/common/common.dart';
-import 'package:esp_app/common/constants.dart';
 import 'package:esp_app/common/widgets/chart_widget.dart';
-import 'package:esp_app/common/widgets/scale_widget.dart';
 import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +49,7 @@ class _AltitudeViewState extends State<AltitudeView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? SizedBox(
-                        height: 500, child: Chart_Widget(value: snapshot.data!))
+                        height: 500, child: ChartWidget(value: snapshot.data!))
                     : const CircularProgressIndicator();
               },
             ),

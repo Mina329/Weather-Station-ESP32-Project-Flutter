@@ -1,5 +1,4 @@
 import 'package:esp_app/common/common.dart';
-import 'package:esp_app/common/constants.dart';
 import 'package:esp_app/common/widgets/scale_widget.dart';
 import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';

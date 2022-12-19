@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Chart_Widget extends StatefulWidget {
-  const Chart_Widget({Key? key, required this.value}) : super(key: key);
+class ChartWidget extends StatefulWidget {
+  const ChartWidget({Key? key, required this.value}) : super(key: key);
 
   final double value;
 
   @override
-  State<Chart_Widget> createState() => _Chart_WidgetState(value);
+  State<ChartWidget> createState() => _ChartWidgetState(value);
 }
 
-class _Chart_WidgetState extends State<Chart_Widget> {
-  _Chart_WidgetState(this.value);
+class _ChartWidgetState extends State<ChartWidget> {
+  _ChartWidgetState(this.value);
 
   final double value;
   late List<LiveData> chartData;
@@ -40,7 +39,9 @@ class _Chart_WidgetState extends State<Chart_Widget> {
 
   updateDataSource(Timer timer) {
     chartData.add(LiveData(time++, value));
-    chartData.remove(0);
+    if (chartData.isNotEmpty) {
+      chartData.removeAt(0);
+    }
     _chartSeriesController.updateDataSource(
         addedDataIndex: chartData.length - 1, removedDataIndex: 0);
   }
@@ -48,23 +49,21 @@ class _Chart_WidgetState extends State<Chart_Widget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: SfCartesianChart(
-          primaryYAxis: NumericAxis(
-            minimum: -50,
-            maximum: 50,
-          ),
-          series: [
-            LineSeries<LiveData, int>(
-              onRendererCreated: (ChartSeriesController controller) {
-                _chartSeriesController = controller;
-              },
-              dataSource: chartData,
-              xValueMapper: (LiveData data, _) => data.time,
-              yValueMapper: (LiveData data, _) => data.height,
-            )
-          ],
+      body: SfCartesianChart(
+        primaryYAxis: NumericAxis(
+          minimum: -50,
+          maximum: 50,
         ),
+        series: [
+          LineSeries<LiveData, int>(
+            onRendererCreated: (ChartSeriesController controller) {
+              _chartSeriesController = controller;
+            },
+            dataSource: chartData,
+            xValueMapper: (LiveData data, _) => data.time,
+            yValueMapper: (LiveData data, _) => data.height,
+          )
+        ],
       ),
     );
   }
