@@ -15,8 +15,8 @@ class _AboutViewState extends State<AboutView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('ESP32 Monitor'),
-        backgroundColor: primaryColor,
+        title: const Text('ESP2 tMonitor'),
+        backgroundColor: Constants.primaryColor,
       ),
       drawer: const AppDrawer(),
       body: Padding(
@@ -31,7 +31,7 @@ class _AboutViewState extends State<AboutView> {
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
-              ...Contants.members.map(
+              ...Constants.members.map(
                 (member) => Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

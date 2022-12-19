@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common/widgets/reusable_card.dart';
 
-class SettingView extends StatefulWidget {
-  const SettingView({Key? key}) : super(key: key);
+class SettingsView extends StatefulWidget {
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
-  State<SettingView> createState() => _SettingViewState();
+  State<SettingsView> createState() => _SettingsViewState();
 }
 
-class _SettingViewState extends State<SettingView> {
-
-  int tempMinValue =-30 ;
+class _SettingsViewState extends State<SettingsView> {
+  int tempMinValue = -30;
   int tempMaxValue = 50;
   int humiMinValue = 30;
   int humiMaxValue = 90;
@@ -30,15 +29,14 @@ class _SettingViewState extends State<SettingView> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('ESP32 Monitor'),
-        backgroundColor: primaryColor,
+        backgroundColor: Constants.primaryColor,
       ),
       drawer: const AppDrawer(),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        color: secondaryColor,
+        color: Constants.secondaryColor,
         child: ListView(
           children: [
-
             ReusableCard(
               colour: const Color(0xFF1D1E33),
               strVal: "Temperature",
@@ -173,7 +171,7 @@ class _SettingViewState extends State<SettingView> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Email",
                       style: TextStyle(fontSize: 40, color: Color(0xFF8D8E98)),
                     ),
@@ -183,7 +181,7 @@ class _SettingViewState extends State<SettingView> {
                     TextField(
                       keyboardType: TextInputType.emailAddress,
                       maxLines: 1,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                       onChanged: (text) {
@@ -194,11 +192,11 @@ class _SettingViewState extends State<SettingView> {
                       height: 25,
                     ),
                     MaterialButton(
-                      color: Color(0xFF8D8E98),
-                      padding: EdgeInsets.all(10),
+                      color: const Color(0xFF8D8E98),
+                      padding: const EdgeInsets.all(10),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      child: Text(
+                      child: const Text(
                         "Submit",
                         style: TextStyle(
                           color: Colors.white,

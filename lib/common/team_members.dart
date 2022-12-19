@@ -5,5 +5,5 @@ class TeamMember {
   final String id;
   final Image? image;
 
-  TeamMember({required this.name, required this.id, this.image});
+  const TeamMember({required this.name, required this.id, this.image});
 }

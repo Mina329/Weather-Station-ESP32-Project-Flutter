@@ -19,13 +19,13 @@ class _AltitudeViewState extends State<AltitudeView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('ESP32 Monitor'),
-        backgroundColor: primaryColor,
+        title: const Text('ESP32 Monitor'),
+        backgroundColor: Constants.primaryColor,
       ),
       drawer: const AppDrawer(),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        color: secondaryColor,
+        color: Constants.secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,9 +40,10 @@ class _AltitudeViewState extends State<AltitudeView> {
                 return snapshot.hasData
                     ? Text(
                         '${snapshot.data!.toStringAsFixed(2)} m',
-                        style: TextStyle(color: Colors.white, fontSize: 30),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 30),
                       )
-                    : CircularProgressIndicator();
+                    : const CircularProgressIndicator();
               },
             ),
             StreamBuilder<double>(
@@ -50,8 +51,7 @@ class _AltitudeViewState extends State<AltitudeView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? SizedBox(
-                        height: 500,
-                        child: Chart_Widget(value: snapshot.data!))
+                        height: 500, child: Chart_Widget(value: snapshot.data!))
                     : const CircularProgressIndicator();
               },
             ),

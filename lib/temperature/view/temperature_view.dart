@@ -18,13 +18,13 @@ class _TemperatureViewState extends State<TemperatureView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('ESP32 Monitor'),
-        backgroundColor: primaryColor,
+        title: const Text('ESP32 Monitor'),
+        backgroundColor: Constants.primaryColor,
       ),
       drawer: const AppDrawer(),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        color: secondaryColor,
+        color: Constants.secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +41,7 @@ class _TemperatureViewState extends State<TemperatureView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? ScaleWidget(snapshot.data!, -40, 85, "°C", 10)
-                    : CircularProgressIndicator();
+                    : const CircularProgressIndicator();
               },
             ),
           ],

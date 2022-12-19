@@ -9,7 +9,7 @@ import 'package:weather_icons/weather_icons.dart';
 
 import '../../altitude/view/altitude_page.dart';
 import '../../repositories/weather_repository.dart';
-import '../../setting/view/setting_page.dart';
+import '../../settings/view/settings_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
           DrawerItem(
             title: "Settings",
             icon: Icons.settings,
-            route: SettingPage.route(),
+            route: SettingsPage.route(),
           ),
           DrawerItem(
             title: "About",
@@ -79,7 +79,7 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: secondaryColor,
+      color: Constants.secondaryColor,
       width: double.infinity,
       height: 200,
       padding: const EdgeInsets.only(top: 20.0),
@@ -92,32 +92,34 @@ class _HeaderState extends State<Header> {
               stream: context.read<WeatherRepository>().time(),
               builder: (context, snapshot) {
                 return snapshot.hasData
-                    ? snapshot.data! == "Day" ? Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        height: 120,
-                        width: 150,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: AssetImage('images/0.jpg'),
-                                fit: BoxFit.fill)),
-                      ) : Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  height: 120,
-                  width: 130,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: AssetImage('images/1.jpg'),
-                          fit: BoxFit.fill)),
-                )
-                    : CircularProgressIndicator();
+                    ? snapshot.data! == "Day"
+                        ? Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            height: 120,
+                            width: 150,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage('images/0.jpg'),
+                                    fit: BoxFit.fill)),
+                          )
+                        : Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            height: 120,
+                            width: 130,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage('images/1.jpg'),
+                                    fit: BoxFit.fill)),
+                          )
+                    : const CircularProgressIndicator();
               },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
+                const Text(
                   "Welcome ",
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
@@ -136,8 +138,8 @@ class _HeaderState extends State<Header> {
                             ),
                           )
                         : Container(
-                            child:
-                                Icon(Icons.safety_check, color: Colors.white),
+                            child: const Icon(Icons.safety_check,
+                                color: Colors.white),
                           );
                   },
                 ),
@@ -179,14 +181,15 @@ class DrawerItem extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 20,
-                  color: textColor,
+                  color: Constants.textColor,
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Text(
                   title,
-                  style: const TextStyle(color: textColor, fontSize: 16),
+                  style:
+                      const TextStyle(color: Constants.textColor, fontSize: 16),
                 ),
               ),
             ],

@@ -18,13 +18,13 @@ class _HumidityViewState extends State<HumidityView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('ESP32 Monitor'),
-        backgroundColor: primaryColor,
+        title: const Text('ESP32 Monitor'),
+        backgroundColor: Constants.primaryColor,
       ),
       drawer: const AppDrawer(),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        color: secondaryColor,
+        color: Constants.secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +38,7 @@ class _HumidityViewState extends State<HumidityView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? ScaleWidget(snapshot.data!, 0, 100, "%", 10)
-                    : CircularProgressIndicator();
+                    : const CircularProgressIndicator();
               },
             ),
           ],
