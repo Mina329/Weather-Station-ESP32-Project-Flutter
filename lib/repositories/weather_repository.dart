@@ -28,6 +28,15 @@ class WeatherRepository {
         .map((event) => event.snapshot.child('PRESSURE').value.toString())
         .map(double.parse);
   }
+  Stream<double> alert() {
+    return firebaseDatabase.onValue
+        .map((event) => event.snapshot.child('ALERT').value.toString())
+        .map(double.parse);
+  }
+  Stream<String> time() {
+    return firebaseDatabase.onValue
+        .map((event) => event.snapshot.child('TIME').value.toString());
+  }
 
   void minTempVal(int value) async {
     await firebaseDatabase.update({'minTempVal': value});

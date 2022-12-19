@@ -11,7 +11,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
   await Firebase.initializeApp();
-
   final firebaseRepository =
       WeatherRepository(FirebaseDatabase.instance.ref().child('ESP32_APP'));
 

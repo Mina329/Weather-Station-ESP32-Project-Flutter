@@ -4,9 +4,11 @@ import 'package:esp_app/pressure/pressure.dart';
 import 'package:esp_app/about/about.dart';
 import 'package:esp_app/temperature/temperature.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 import '../../altitude/view/altitude_page.dart';
+import '../../repositories/weather_repository.dart';
 import '../../setting/view/setting_page.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -81,17 +83,68 @@ class _HeaderState extends State<Header> {
       width: double.infinity,
       height: 200,
       padding: const EdgeInsets.only(top: 20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            height: 70,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            StreamBuilder<String>(
+              stream: context.read<WeatherRepository>().time(),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? snapshot.data! == "Day" ? Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        height: 120,
+                        width: 150,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: AssetImage('images/0.jpg'),
+                                fit: BoxFit.fill)),
+                      ) : Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  height: 120,
+                  width: 130,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: AssetImage('images/1.jpg'),
+                          fit: BoxFit.fill)),
+                )
+                    : CircularProgressIndicator();
+              },
             ),
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "Welcome ",
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+                StreamBuilder<double>(
+                  stream: context.read<WeatherRepository>().alert(),
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? Container(
+                            child: Icon(
+                              snapshot.data! == 0
+                                  ? Icons.safety_check
+                                  : Icons.dangerous,
+                              color: snapshot.data! == 0
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
+                          )
+                        : Container(
+                            child:
+                                Icon(Icons.safety_check, color: Colors.white),
+                          );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

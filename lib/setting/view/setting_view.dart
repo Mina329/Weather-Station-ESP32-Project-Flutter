@@ -13,7 +13,8 @@ class SettingView extends StatefulWidget {
 }
 
 class _SettingViewState extends State<SettingView> {
-  int tempMinValue = -40;
+
+  int tempMinValue =-30 ;
   int tempMaxValue = 50;
   int humiMinValue = 30;
   int humiMaxValue = 90;
@@ -37,6 +38,7 @@ class _SettingViewState extends State<SettingView> {
         color: secondaryColor,
         child: ListView(
           children: [
+
             ReusableCard(
               colour: const Color(0xFF1D1E33),
               strVal: "Temperature",
