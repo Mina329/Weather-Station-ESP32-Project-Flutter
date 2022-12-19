@@ -22,6 +22,7 @@ class _PressureViewState extends State<PressureView> {
       ),
       drawer: const AppDrawer(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -34,7 +35,7 @@ class _PressureViewState extends State<PressureView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? ScaleWidget(snapshot.data!, 800, 1300, "hPa", 50)
-                    : ScaleWidget(1023, 800, 1300, "hPa", 50);
+                    : CircularProgressIndicator();
               },
             ),
           ],

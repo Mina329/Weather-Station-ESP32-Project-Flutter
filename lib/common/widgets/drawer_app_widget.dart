@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 import '../../altitude/view/altitude_page.dart';
+import '../../setting/view/setting_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -48,6 +49,11 @@ class AppDrawer extends StatelessWidget {
             title: "Air Pressure",
             icon: WeatherIcons.barometer,
             route: PressurePage.route(),
+          ),
+          DrawerItem(
+            title: "Settings",
+            icon: Icons.settings,
+            route: SettingPage.route(),
           ),
           DrawerItem(
             title: "About",

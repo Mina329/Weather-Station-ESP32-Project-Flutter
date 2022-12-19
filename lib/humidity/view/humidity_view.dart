@@ -1,3 +1,4 @@
+import 'package:esp_app/common/common.dart';
 import 'package:esp_app/common/constants.dart';
 import 'package:esp_app/common/widgets/scale_widget.dart';
 import 'package:esp_app/repositories/repositories.dart';
@@ -20,7 +21,9 @@ class _HumidityViewState extends State<HumidityView> {
         title: Text('ESP32 Monitor'),
         backgroundColor: primaryColor,
       ),
+      drawer: const AppDrawer(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,7 +38,7 @@ class _HumidityViewState extends State<HumidityView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? ScaleWidget(snapshot.data!, 0, 100, "%", 10)
-                    : ScaleWidget(50, 0, 100, '%', 10);
+                    : CircularProgressIndicator();
               },
             ),
           ],

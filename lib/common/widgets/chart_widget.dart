@@ -24,7 +24,7 @@ class _Chart_WidgetState extends State<Chart_Widget> {
   void initState() {
     super.initState();
     chartData = getChartData();
-    Timer.periodic(const Duration(seconds: 1), updateDataSource);
+    Timer.periodic(const Duration(seconds: 2), updateDataSource);
   }
 
   List<LiveData> getChartData() {
@@ -51,8 +51,8 @@ class _Chart_WidgetState extends State<Chart_Widget> {
       body: Container(
         child: SfCartesianChart(
           primaryYAxis: NumericAxis(
-            minimum: 0,
-            maximum: -50,
+            minimum: -50,
+            maximum: 50,
           ),
           series: [
             LineSeries<LiveData, int>(

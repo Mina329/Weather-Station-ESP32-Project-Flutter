@@ -1,3 +1,4 @@
+import 'package:esp_app/common/common.dart';
 import 'package:esp_app/common/constants.dart';
 import 'package:esp_app/common/widgets/chart_widget.dart';
 import 'package:esp_app/common/widgets/scale_widget.dart';
@@ -21,7 +22,9 @@ class _AltitudeViewState extends State<AltitudeView> {
         title: Text('ESP32 Monitor'),
         backgroundColor: primaryColor,
       ),
+      drawer: const AppDrawer(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,22 +38,22 @@ class _AltitudeViewState extends State<AltitudeView> {
               stream: context.read<WeatherRepository>().altitudes(),
               builder: (context, snapshot) {
                 return snapshot.hasData
-                    ? Text('${snapshot.data!.toStringAsFixed(2)} m',
-                style: TextStyle(color: Colors.white,fontSize: 30),)
-                    : Text('0 m',
-                    style: TextStyle(color: Colors.white,fontSize: 30));
+                    ? Text(
+                        '${snapshot.data!.toStringAsFixed(2)} m',
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )
+                    : CircularProgressIndicator();
               },
             ),
-            SizedBox(
-              height: 500,
-              child: StreamBuilder<double>(
-                stream: context.read<WeatherRepository>().altitudes(),
-                builder: (context, snapshot) {
-                  return snapshot.hasData
-                      ? Chart_Widget(value: snapshot.data!)
-                      : const CircularProgressIndicator();
-                },
-              ),
+            StreamBuilder<double>(
+              stream: context.read<WeatherRepository>().altitudes(),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? SizedBox(
+                        height: 500,
+                        child: Chart_Widget(value: snapshot.data!))
+                    : const CircularProgressIndicator();
+              },
             ),
           ],
         ),

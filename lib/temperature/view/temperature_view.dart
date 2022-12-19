@@ -23,6 +23,7 @@ class _TemperatureViewState extends State<TemperatureView> {
       ),
       drawer: const AppDrawer(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: secondaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,7 +41,7 @@ class _TemperatureViewState extends State<TemperatureView> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? ScaleWidget(snapshot.data!, -40, 85, "°C", 10)
-                    : ScaleWidget(20, -40, 85, "°C", 10);
+                    : CircularProgressIndicator();
               },
             ),
           ],
