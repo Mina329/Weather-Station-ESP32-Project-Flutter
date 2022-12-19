@@ -1,10 +1,6 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:esp_app/common/common.dart';
-import 'package:esp_app/common/constants.dart';
-import 'package:esp_app/common/widgets/chart_widget.dart';
-import 'package:esp_app/common/widgets/scale_widget.dart';
-import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AboutView extends StatefulWidget {
   const AboutView({Key? key}) : super(key: key);
@@ -19,78 +15,62 @@ class _AboutViewState extends State<AboutView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('ESP32 Monitor'),
+        title: const Text('ESP32 Monitor'),
         backgroundColor: primaryColor,
       ),
       drawer: const AppDrawer(),
-      body: Container(
-        color: secondaryColor,
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "T050",
-                  style: TextStyle(color: Colors.white, fontSize: 50),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Text(
+                  'Team Members',
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
-                Row(
-
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+              ...Contants.members.map(
+                (member) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      "20191700674",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    AvatarGlow(
+                      glowColor: Colors.blue,
+                      endRadius: 90.0,
+                      duration: const Duration(milliseconds: 2000),
+                      repeat: true,
+                      showTwoGlows: true,
+                      repeatPauseDuration: const Duration(milliseconds: 100),
+                      child: Material(
+                        // Replace this child with your own
+                        elevation: 8.0,
+                        shape: const CircleBorder(),
+                        child: CircleAvatar(
+                          radius: 50.0,
+                          child: member.image ??
+                              const Icon(
+                                Icons.person_outline,
+                                size: 50,
+                              ),
+                        ),
+                      ),
                     ),
-                    const Text(
-                      "مینا امیل فخرى",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    Text(
+                      member.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      member.id,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "20191700677",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                    const Text(
-                      "مینا سعدالله رزق الله",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "20191700675",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                    const Text(
-                      "مینا جرجس نصیف",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "20191700607",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                    const Text(
-                      "محمود محمد احمد",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
