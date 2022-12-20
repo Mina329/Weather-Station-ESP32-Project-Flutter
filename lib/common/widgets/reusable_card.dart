@@ -64,7 +64,7 @@ class ReusableCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          minValue.toString(),
+                          minValue == null ? "" : minValue.toString(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 50.0,
@@ -113,7 +113,7 @@ class ReusableCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          maxValue.toString(),
+                          maxValue == null ? "" : maxValue.toString(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 50.0,

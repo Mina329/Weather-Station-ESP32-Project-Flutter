@@ -47,6 +47,7 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   email_validator: ^2.1.17
   avatar_glow: ^2.0.2
+  toggle_switch: ^2.0.1
 
 
 dev_dependencies:

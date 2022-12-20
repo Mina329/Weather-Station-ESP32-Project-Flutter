@@ -3,6 +3,7 @@ import 'package:esp_app/common/common.dart';
 import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../common/widgets/reusable_card.dart';
 
 class SettingsView extends StatefulWidget {
@@ -13,8 +14,8 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  int tempMinValue = -30;
-  int tempMaxValue = 50;
+  int tempMinValue = -40;
+  int tempMaxValue = 40;
   int humiMinValue = 30;
   int humiMaxValue = 90;
   int altMinValue = -49;
@@ -37,35 +38,52 @@ class _SettingsViewState extends State<SettingsView> {
         color: Constants.secondaryColor,
         child: ListView(
           children: [
-            ReusableCard(
-              colour: const Color(0xFF1D1E33),
-              strVal: "Temperature",
-              strlbl: "°C",
-              minValue: tempMinValue,
-              maxValue: tempMaxValue,
-              minMinusFunc: () {
-                setState(() {
-                  tempMinValue--;
-                  context.read<WeatherRepository>().minTempVal(tempMinValue);
-                });
-              },
-              minPlusFunc: () {
-                setState(() {
-                  tempMinValue++;
-                  context.read<WeatherRepository>().minTempVal(tempMinValue);
-                });
-              },
-              maxMinusFunc: () {
-                setState(() {
-                  tempMaxValue--;
-                  context.read<WeatherRepository>().maxTempVal(tempMaxValue);
-                });
-              },
-              maxPlusFunc: () {
-                setState(() {
-                  tempMaxValue++;
-                  context.read<WeatherRepository>().maxTempVal(tempMaxValue);
-                });
+            StreamBuilder<Map<String, int>>(
+              stream: context.read<WeatherRepository>().minmaxTemp(),
+              builder: (context, snapshot) {
+                tempMinValue = snapshot.data!["minTempVal"]!;
+                tempMaxValue = snapshot.data!["maxTempVal"]!;
+                return snapshot.hasData
+                    ? ReusableCard(
+                        colour: const Color(0xFF1D1E33),
+                        strVal: "Temperature",
+                        strlbl: "°C",
+                        minValue: snapshot.data!["minTempVal"]!,
+                        maxValue: snapshot.data!["maxTempVal"]!,
+                        minMinusFunc: () {
+                          setState(() {
+                            tempMinValue--;
+                            context
+                                .read<WeatherRepository>()
+                                .minTempVal(tempMinValue);
+                          });
+                        },
+                        minPlusFunc: () {
+                          setState(() {
+                            tempMinValue++;
+                            context
+                                .read<WeatherRepository>()
+                                .minTempVal(tempMinValue);
+                          });
+                        },
+                        maxMinusFunc: () {
+                          setState(() {
+                            tempMaxValue--;
+                            context
+                                .read<WeatherRepository>()
+                                .maxTempVal(tempMaxValue);
+                          });
+                        },
+                        maxPlusFunc: () {
+                          setState(() {
+                            tempMaxValue++;
+                            context
+                                .read<WeatherRepository>()
+                                .maxTempVal(tempMaxValue);
+                          });
+                        },
+                      )
+                    : const CircularProgressIndicator();
               },
             ),
             ReusableCard(
@@ -223,7 +241,55 @@ class _SettingsViewState extends State<SettingsView> {
                                 ),
                               );
                       },
-                    )
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Note : Email Notification will be \nturned off after an Email is sent .',
+                          style: TextStyle(
+                            color: const Color(0xFF8D8E98),
+                          ),
+                        ),
+                        StreamBuilder(
+                          stream: context.read<WeatherRepository>().emailSent(),
+                          builder: (context, snapshot) {
+                            return snapshot.hasData
+                                ? ToggleSwitch(
+                                    minWidth: 50.0,
+                                    cornerRadius: 20.0,
+                                    activeBgColors: [
+                                      [Colors.green[800]!],
+                                      [Colors.red[800]!]
+                                    ],
+                                    activeFgColor: Colors.white,
+                                    inactiveBgColor: Colors.grey,
+                                    inactiveFgColor: Colors.white,
+                                    initialLabelIndex:
+                                        snapshot.data!.toLowerCase() == "true"
+                                            ? 0
+                                            : 1,
+                                    totalSwitches: 2,
+                                    labels: ['ON', 'OFF'],
+                                    radiusStyle: true,
+                                    onToggle: (index) {
+                                      index == 0
+                                          ? context
+                                              .read<WeatherRepository>()
+                                              .setEmailSent("true")
+                                          : context
+                                              .read<WeatherRepository>()
+                                              .setEmailSent("false");
+                                    },
+                                  )
+                                : const CircularProgressIndicator();
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

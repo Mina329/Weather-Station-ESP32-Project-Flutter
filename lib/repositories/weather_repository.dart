@@ -28,14 +28,34 @@ class WeatherRepository {
         .map((event) => event.snapshot.child('PRESSURE').value.toString())
         .map(double.parse);
   }
+
   Stream<double> alert() {
     return firebaseDatabase.onValue
         .map((event) => event.snapshot.child('ALERT').value.toString())
         .map(double.parse);
   }
+
   Stream<String> time() {
     return firebaseDatabase.onValue
         .map((event) => event.snapshot.child('TIME').value.toString());
+  }
+
+  Stream<String> emailSent() {
+    return firebaseDatabase.onValue
+        .map((event) => event.snapshot.child('emailSent').value.toString());
+  }
+
+  Stream<Map<String, int>> minmaxTemp() {
+    return firebaseDatabase.onValue.map((event) {
+      return {
+        'minTempVal':
+            double.parse(event.snapshot.child('minTempVal').value.toString())
+                .round(),
+        'maxTempVal':
+            double.parse(event.snapshot.child('maxTempVal').value.toString())
+                .round()
+      };
+    });
   }
 
   void minTempVal(int value) async {
@@ -74,4 +94,7 @@ class WeatherRepository {
     await firebaseDatabase.update({'Email': value});
   }
 
+  void setEmailSent(String value) async {
+    await firebaseDatabase.update({'emailSent': value});
+  }
 }
