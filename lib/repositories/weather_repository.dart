@@ -40,6 +40,11 @@ class WeatherRepository {
         .map((event) => event.snapshot.child('TIME').value.toString());
   }
 
+  Stream<Map<dynamic, dynamic>> settings() {
+    return firebaseDatabase.onValue
+        .map((event) => event.snapshot.value as Map<dynamic, dynamic>);
+  }
+
   Stream<String> emailSent() {
     return firebaseDatabase.onValue
         .map((event) => event.snapshot.child('emailSent').value.toString());

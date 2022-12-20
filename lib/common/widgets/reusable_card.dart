@@ -1,39 +1,41 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ReusableCard extends StatelessWidget {
-  const ReusableCard({
+class ReusableCard extends StatefulWidget {
+  ReusableCard({
     super.key,
     required this.colour,
     required this.minValue,
     required this.maxValue,
     required this.strVal,
     required this.strlbl,
-    required this.minMinusFunc,
-    required this.minPlusFunc,
-    required this.maxMinusFunc,
-    required this.maxPlusFunc,
+    required this.minChanged,
+    required this.maxChanged,
   });
 
   final Color colour;
-  final int minValue;
-  final int maxValue;
+
+  int minValue;
+  int maxValue;
   final String strVal;
   final String strlbl;
-  final VoidCallback minMinusFunc;
 
-  final VoidCallback minPlusFunc;
+  final Function(int) minChanged;
+  final Function(int) maxChanged;
 
-  final VoidCallback maxMinusFunc;
+  @override
+  State<ReusableCard> createState() => _ReusableCardState();
+}
 
-  final VoidCallback maxPlusFunc;
-
+class _ReusableCardState extends State<ReusableCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: colour,
+        color: widget.colour,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
@@ -41,7 +43,7 @@ class ReusableCard extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              strVal,
+              widget.strVal,
               style: const TextStyle(fontSize: 40, color: Color(0xFF8D8E98)),
             ),
             const SizedBox(
@@ -64,7 +66,7 @@ class ReusableCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          minValue == null ? "" : minValue.toString(),
+                          '${widget.minValue}',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 50.0,
@@ -72,7 +74,7 @@ class ReusableCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          strlbl,
+                          widget.strlbl,
                           style: const TextStyle(
                             fontSize: 18.0,
                             color: Color(0xFF8D8E98),
@@ -84,16 +86,24 @@ class ReusableCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FloatingActionButton(
+                          heroTag: Random.secure().nextDouble().toDouble(),
                           backgroundColor: const Color(0xFF8D8E98),
-                          onPressed: minMinusFunc,
+                          onPressed: () {
+                            widget.minValue--;
+                            widget.minChanged(widget.minValue);
+                          },
                           child: const Icon(FontAwesomeIcons.minus),
                         ),
                         const SizedBox(
                           width: 20.0,
                         ),
                         FloatingActionButton(
+                          heroTag: Random.secure().nextDouble().toDouble(),
                           backgroundColor: const Color(0xFF8D8E98),
-                          onPressed: minPlusFunc,
+                          onPressed: () {
+                            widget.minValue++;
+                            widget.minChanged(widget.minValue);
+                          },
                           child: const Icon(FontAwesomeIcons.plus),
                         )
                       ],
@@ -113,7 +123,7 @@ class ReusableCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          maxValue == null ? "" : maxValue.toString(),
+                          '${widget.maxValue}',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 50.0,
@@ -121,7 +131,7 @@ class ReusableCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          strlbl,
+                          widget.strlbl,
                           style: const TextStyle(
                             fontSize: 18.0,
                             color: Color(0xFF8D8E98),
@@ -133,16 +143,26 @@ class ReusableCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FloatingActionButton(
+                          heroTag: Random.secure().nextDouble().toDouble(),
                           backgroundColor: const Color(0xFF8D8E98),
-                          onPressed: maxMinusFunc,
+                          onPressed: () {
+                            setState(() {
+                              widget.maxValue--;
+                              widget.maxChanged(widget.maxValue);
+                            });
+                          },
                           child: const Icon(FontAwesomeIcons.minus),
                         ),
                         const SizedBox(
                           width: 20.0,
                         ),
                         FloatingActionButton(
+                          heroTag: Random.secure().nextDouble().toDouble(),
                           backgroundColor: const Color(0xFF8D8E98),
-                          onPressed: maxPlusFunc,
+                          onPressed: () {
+                            widget.maxValue++;
+                            widget.maxChanged(widget.maxValue);
+                          },
                           child: const Icon(FontAwesomeIcons.plus),
                         )
                       ],
