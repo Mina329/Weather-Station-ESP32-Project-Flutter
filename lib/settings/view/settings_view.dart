@@ -84,7 +84,7 @@ class _SettingsViewState extends State<SettingsView> {
                   },
                   maxChanged: (value) {
                     context.read<WeatherRepository>().maxAltVal(value);
-                  },
+                  }
                 ),
                 ReusableCard(
                   colour: const Color(0xFF1D1E33),
@@ -205,10 +205,10 @@ class _SettingsViewState extends State<SettingsView> {
                                           index == 0
                                               ? context
                                                   .read<WeatherRepository>()
-                                                  .setEmailSent("true")
+                                                  .setEmailSent(true)
                                               : context
                                                   .read<WeatherRepository>()
-                                                  .setEmailSent("false");
+                                                  .setEmailSent(false);
                                         },
                                       )
                                     : const CircularProgressIndicator();

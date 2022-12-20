@@ -96,10 +96,10 @@ class WeatherRepository {
   }
 
   void setEmail(String value) async {
-    await firebaseDatabase.update({'Email': value});
+    await firebaseDatabase.update({'email': value});
   }
 
-  void setEmailSent(String value) async {
+  void setEmailSent(bool value) async {
     await firebaseDatabase.update({'emailSent': value});
   }
 }

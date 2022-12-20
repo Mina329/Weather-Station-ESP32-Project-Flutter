@@ -20,9 +20,14 @@ class _AboutViewState extends State<AboutView> {
       ),
       drawer: const AppDrawer(),
       body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         color: Constants.secondaryColor,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(
+            top: 20,
+            bottom: 20,
+          ),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

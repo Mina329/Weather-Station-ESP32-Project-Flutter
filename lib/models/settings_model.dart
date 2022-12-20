@@ -8,7 +8,6 @@ class SettingsModel {
   final int minAltVal;
   final int minPresVal;
   final String email;
-  final bool emailSent;
 
   SettingsModel({
     required this.maxTempVal,
@@ -20,7 +19,6 @@ class SettingsModel {
     required this.minAltVal,
     required this.minPresVal,
     required this.email,
-    required this.emailSent,
   });
 
   SettingsModel copyWith({
@@ -33,7 +31,6 @@ class SettingsModel {
     int? minAltVal,
     int? minPresVal,
     String? email,
-    bool? emailSent,
   }) =>
       SettingsModel(
         maxTempVal: maxTempVal ?? this.maxTempVal,
@@ -45,7 +42,6 @@ class SettingsModel {
         minAltVal: minAltVal ?? this.minAltVal,
         minPresVal: minPresVal ?? this.minPresVal,
         email: email ?? this.email,
-        emailSent: emailSent ?? this.emailSent,
       );
 
   Map<dynamic, dynamic> toJson() => {
@@ -58,7 +54,6 @@ class SettingsModel {
         "minAltVal": minAltVal,
         "minPresVal": minPresVal,
         "email": email,
-        "emailSent": emailSent,
       };
 
   factory SettingsModel.fromJson(Map<dynamic, dynamic> map) => SettingsModel(
@@ -71,6 +66,5 @@ class SettingsModel {
         minAltVal: map['minAltVal'],
         minPresVal: map['minPresVal'],
         email: map['email'],
-        emailSent: map['emailSent'],
       );
 }
