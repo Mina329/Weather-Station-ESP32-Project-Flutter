@@ -24,14 +24,6 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   List<List<String>> csvList = [];
-  int tempMinValue = -40;
-  int tempMaxValue = 40;
-  int humiMinValue = 30;
-  int humiMaxValue = 90;
-  int altMinValue = -49;
-  int altMaxValue = 49;
-  int presMinValue = 900;
-  int presMaxValue = 1300;
   String email = "minaemil329@gmail.com";
   Timer? timer;
 
@@ -107,7 +99,6 @@ class _SettingsViewState extends State<SettingsView> {
                     context.read<WeatherRepository>().minTempVal(value);
                   },
                   maxChanged: (value) {
-                    tempMaxValue++;
                     context.read<WeatherRepository>().maxTempVal(value);
                   },
                 ),
