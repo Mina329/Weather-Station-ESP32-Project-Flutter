@@ -15,14 +15,6 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  int tempMinValue = -40;
-  int tempMaxValue = 40;
-  int humiMinValue = 30;
-  int humiMaxValue = 90;
-  int altMinValue = -49;
-  int altMaxValue = 49;
-  int presMinValue = 900;
-  int presMaxValue = 1300;
   String email = "minaemil329@gmail.com";
 
   @override
@@ -56,7 +48,6 @@ class _SettingsViewState extends State<SettingsView> {
                     context.read<WeatherRepository>().minTempVal(value);
                   },
                   maxChanged: (value) {
-                    tempMaxValue++;
                     context.read<WeatherRepository>().maxTempVal(value);
                   },
                 ),
@@ -74,18 +65,17 @@ class _SettingsViewState extends State<SettingsView> {
                   },
                 ),
                 ReusableCard(
-                  colour: const Color(0xFF1D1E33),
-                  strVal: "Altitude",
-                  strlbl: "m",
-                  minValue: settings.minAltVal,
-                  maxValue: settings.maxAltVal,
-                  minChanged: (value) {
-                    context.read<WeatherRepository>().minAltVal(value);
-                  },
-                  maxChanged: (value) {
-                    context.read<WeatherRepository>().maxAltVal(value);
-                  }
-                ),
+                    colour: const Color(0xFF1D1E33),
+                    strVal: "Altitude",
+                    strlbl: "m",
+                    minValue: settings.minAltVal,
+                    maxValue: settings.maxAltVal,
+                    minChanged: (value) {
+                      context.read<WeatherRepository>().minAltVal(value);
+                    },
+                    maxChanged: (value) {
+                      context.read<WeatherRepository>().maxAltVal(value);
+                    }),
                 ReusableCard(
                   colour: const Color(0xFF1D1E33),
                   strVal: "Air Pressure",
