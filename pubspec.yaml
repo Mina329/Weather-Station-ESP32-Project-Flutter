@@ -50,6 +50,9 @@ dependencies:
   toggle_switch: ^2.0.1
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
+  csv: ^5.0.1
+  permission_handler: ^10.2.0
+  path_provider: ^2.0.11
 
 
 dev_dependencies:

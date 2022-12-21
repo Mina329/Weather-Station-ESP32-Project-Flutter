@@ -45,6 +45,11 @@ class WeatherRepository {
         .map((event) => event.snapshot.value as Map<dynamic, dynamic>);
   }
 
+  Map<dynamic, dynamic> csv () {
+    DatabaseEvent event = firebaseDatabase.once() as DatabaseEvent;
+    return event.snapshot.value as Map<dynamic,dynamic>;
+  }
+
   Stream<String> emailSent() {
     return firebaseDatabase.onValue
         .map((event) => event.snapshot.child('emailSent').value.toString());
