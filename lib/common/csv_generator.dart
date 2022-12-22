@@ -31,7 +31,7 @@ class CsvGenerator {
     if (await Permission.storage.isDenied) {
       await Permission.storage.request();
     }
-    if (await Permission.storage.isDenied) {
+    if (await Permission.manageExternalStorage.isDenied) {
       await Permission.manageExternalStorage.request();
     }
 
