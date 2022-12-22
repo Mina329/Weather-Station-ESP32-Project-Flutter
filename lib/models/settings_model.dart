@@ -56,7 +56,7 @@ class SettingsModel {
         "email": email,
       };
 
-  factory SettingsModel.fromJson(Map<dynamic, dynamic> map) => SettingsModel(
+  factory SettingsModel.fromJson(Map map) => SettingsModel(
         maxTempVal: map['maxTempVal'],
         maxHumiVal: map['maxHumiVal'],
         maxAltVal: map['maxAltVal'],

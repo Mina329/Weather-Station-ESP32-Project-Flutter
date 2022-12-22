@@ -1,40 +1,46 @@
-class CSVModel {
-  final String temp;
-  final String humi;
-  final String alt;
-  final String pres;
+class CSVRowModel {
+  final num temp;
+  final num humi;
+  final num alt;
+  final num pres;
+  final DateTime? createdAt;
 
-  CSVModel({
+  CSVRowModel({
     required this.temp,
     required this.humi,
     required this.alt,
     required this.pres,
+    this.createdAt,
   });
 
-  CSVModel copyWith({
-    String? temp,
-    String? humi,
-    String? alt,
-    String? pres,
+  CSVRowModel copyWith({
+    num? temp,
+    num? humi,
+    num? alt,
+    num? pres,
+    DateTime? createdAt,
   }) =>
-      CSVModel(
+      CSVRowModel(
         temp: temp ?? this.temp,
         humi: humi ?? this.humi,
-        alt:  alt ?? this.alt,
+        alt: alt ?? this.alt,
         pres: pres ?? this.pres,
+        createdAt: createdAt ?? this.createdAt,
       );
 
-  Map<dynamic, dynamic> toJson() => {
-    "TEMPERATURE": temp,
-    "HUMIDITY": humi,
-    "ALTITUDE": alt,
-    "PRESSURE": pres,
-  };
+  Map<String, dynamic> toJson() => {
+        "TEMPERATURE": temp,
+        "HUMIDITY": humi,
+        "ALTITUDE": alt,
+        "PRESSURE": pres,
+        "CREATED_AT": createdAt ?? DateTime.now(),
+      };
 
-  factory CSVModel.fromJson(Map<dynamic, dynamic> map) => CSVModel(
-    temp: map['TEMPERATURE'],
-    humi: map['HUMIDITY'],
-    alt: map['ALTITUDE'],
-    pres: map['PRESSURE'],
-  );
+  factory CSVRowModel.fromJson(Map map) => CSVRowModel(
+        temp: map['TEMPERATURE'],
+        humi: map['HUMIDITY'],
+        alt: map['ALTITUDE'],
+        pres: map['PRESSURE'],
+        createdAt: map['CREATED_AT']?.toDate() ?? DateTime.now(),
+      );
 }

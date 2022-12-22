@@ -1,19 +1,11 @@
-import 'dart:io';
-
-import 'package:csv/csv.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:esp_app/common/common.dart';
-import 'package:esp_app/models/csv_model.dart';
+import 'package:esp_app/common/widgets/reusable_card.dart';
 import 'package:esp_app/models/settings_model.dart';
 import 'package:esp_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import '../../common/widgets/reusable_card.dart';
-import 'dart:async';
-import 'package:path_provider/path_provider.dart';
-
 
 class SettingsView extends StatefulWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -23,50 +15,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  List<List<String>> csvList = [];
   String email = "minaemil329@gmail.com";
-  Timer? timer;
-
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(seconds: 10), (Timer t) => addRow(csvList));
-  }
-
-  void addRow(List<List<String>> list) {
-    var csv = CSVModel.fromJson(context.read<WeatherRepository>().csv());
-    list.add([csv.temp, csv.humi, csv.alt, csv.pres]);
-  }
-
-  void generateCSV(List<List<dynamic>> csvList) async {
-    List<String> rowHeader = ["TEMPERATURE", "HUMIDITY", "ALTITUDE","AIR PRESSURE"];
-    List<List<dynamic>> rows = [];
-    rows.add(rowHeader);
-    for (int i = 0; i < csvList.length; i++) {
-      List<dynamic> dataRow = [];
-      dataRow.add(csvList[i][0]);
-      dataRow.add(csvList[i][1]);
-      dataRow.add(csvList[i][2]);
-      dataRow.add(csvList[i][3]);
-      rows.add(dataRow);
-    }
-    await Permission.manageExternalStorage.request();
-    bool checkPermission=await Permission.manageExternalStorage.request().isGranted;
-    if(checkPermission) {
-
-      Directory downloadDir = Directory('storage/emulated.0/Download');
-      final File file = await(File('${downloadDir.path}/esp.csv').create());
-      String csvData = ListToCsvConverter().convert(rows);
-      await file.writeAsString(csvData);
-    }
-  }
-
-
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -291,8 +240,11 @@ class _SettingsViewState extends State<SettingsView> {
                               fontSize: 30,
                             ),
                           ),
-                          onPressed: () {
-                            generateCSV(csvList);
+                          onPressed: () async {
+                            var csvRows = await context
+                                .read<WeatherRepository>()
+                                .csvRecords();
+                            CsvGenerator.generateCSV(csvRows);
                           },
                         ),
                         const SizedBox(

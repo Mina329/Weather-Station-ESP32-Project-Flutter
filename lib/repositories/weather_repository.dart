@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esp_app/models/csv_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class WeatherRepository {
   final DatabaseReference firebaseDatabase;
+  final FirebaseFirestore firebaseFirestore;
 
-  WeatherRepository(this.firebaseDatabase);
+  WeatherRepository({
+    required this.firebaseDatabase,
+    required this.firebaseFirestore,
+  });
 
   Stream<double> temperatures() {
     return firebaseDatabase.onValue
@@ -40,14 +46,19 @@ class WeatherRepository {
         .map((event) => event.snapshot.child('TIME').value.toString());
   }
 
+  Future<List<CSVRowModel>> csvRecords() async {
+    var query = await firebaseFirestore
+        .collection('history')
+        .orderBy('CREATED_AT', descending: true)
+        .get();
+    var csvRows =
+        query.docs.map((doc) => CSVRowModel.fromJson(doc.data())).toList();
+    return csvRows;
+  }
+
   Stream<Map<dynamic, dynamic>> settings() {
     return firebaseDatabase.onValue
         .map((event) => event.snapshot.value as Map<dynamic, dynamic>);
-  }
-
-  Map<dynamic, dynamic> csv () {
-    DatabaseEvent event = firebaseDatabase.once() as DatabaseEvent;
-    return event.snapshot.value as Map<dynamic,dynamic>;
   }
 
   Stream<String> emailSent() {
