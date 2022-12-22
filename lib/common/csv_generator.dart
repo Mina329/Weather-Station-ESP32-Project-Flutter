@@ -8,19 +8,19 @@ import 'package:path/path.dart' as path;
 class CsvGenerator {
   static void generateCSV(List<CSVRowModel> csvRows) async {
     List<String> rowHeader = [
+      "CREATED_AT",
       "TEMPERATURE",
       "HUMIDITY",
       "ALTITUDE",
-      "AIR PRESSURE"
-          "CREATED_AT",
+      "AIR PRESSURE",
     ];
     List<List<String>> rows = csvRows
         .map((row) => [
+              '${row.createdAt}',
               '${row.temp}',
               '${row.humi}',
               '${row.alt}',
               '${row.pres}',
-              '${row.createdAt}'
             ])
         .toList();
     rows = [
