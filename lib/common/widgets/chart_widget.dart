@@ -9,6 +9,7 @@ class ChartWidget extends StatefulWidget {
   final double value;
 
   @override
+  // ignore: no_logic_in_create_state
   State<ChartWidget> createState() => _ChartWidgetState(value);
 }
 

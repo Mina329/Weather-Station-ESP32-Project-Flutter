@@ -32,7 +32,7 @@ class _AboutViewState extends State<AboutView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Center(
+                const Center(
                   child: Text(
                     'Team Members',
                     style: TextStyle(color: Color(0xFF8D8E98), fontSize: 40),
@@ -64,13 +64,13 @@ class _AboutViewState extends State<AboutView> {
                         ),
                       ),
                       Text(member.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xFF8D8E98),
                             fontSize: 20,
                           )),
                       Text(
                         member.id,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF8D8E98),
                           fontSize: 15,
                         ),

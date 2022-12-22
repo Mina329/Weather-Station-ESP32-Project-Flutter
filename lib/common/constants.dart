@@ -1,8 +1,6 @@
-import 'dart:ui';
 
 import 'package:esp_app/common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class Constants {
   static const primaryColor = Color(0xFF111328);
