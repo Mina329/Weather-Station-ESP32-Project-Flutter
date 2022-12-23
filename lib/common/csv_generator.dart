@@ -11,8 +11,8 @@ class CsvGenerator {
       "TEMPERATURE",
       "HUMIDITY",
       "ALTITUDE",
-      "AIR PRESSURE"
-          "CREATED_AT",
+      "AIR PRESSURE",
+      "CREATED_AT",
     ];
     List<List<String>> rows = csvRows
         .map((row) => [
@@ -31,7 +31,7 @@ class CsvGenerator {
     if (await Permission.storage.isDenied) {
       await Permission.storage.request();
     }
-    if (await Permission.storage.isDenied) {
+    if (await Permission.manageExternalStorage.isDenied) {
       await Permission.manageExternalStorage.request();
     }
 
